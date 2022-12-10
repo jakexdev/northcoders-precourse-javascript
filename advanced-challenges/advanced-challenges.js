@@ -2,6 +2,7 @@ function getEvenNumbers(nums) {
   /*
     This function takes an array of integers and returns an array containing only even integers
   */
+  return nums.filter((num) => num % 2 === 0);
 }
 
 function flipBooleans(bools) {
@@ -9,6 +10,7 @@ function flipBooleans(bools) {
     This function takes an array of booleans and should return an array of the opposite booleans.
     E.g. [true, true, false] => [false, false, true]
   */
+  return bools.map((bool) => !bool);
 }
 
 function translateKey(student, keyToChange, translation) {
@@ -39,6 +41,13 @@ function findFirstDentist(people) {
   /*
     This function takes an array of people objects and returns the first found dentist object from the array.
   */
+  const dentist = people.find((person) => person.isDentist);
+  // if (!dentist) {
+  //   return null;
+  // } else {
+  //   return dentist;
+  // }
+  return !dentist ? null : dentist;
 }
 
 function tallyPeopleInManchester(people) {
@@ -49,6 +58,15 @@ function tallyPeopleInManchester(people) {
 
     The function should return the number of people who live in the city of Manchester
   */
+  let total = 0;
+
+  people.forEach((person) => {
+    if (person.lives.city === "Manchester") {
+      total += 1;
+    }
+  });
+
+  return total;
 }
 
 function getPugOwners(dogs) {
@@ -61,6 +79,18 @@ function getPugOwners(dogs) {
     ]
     will return ['Izzi', 'Anat']
   */
+  // return dogs.map((dog) => {
+  //   if (dog.breed === "Pug") {
+  //     return dog.owner;
+  //   }
+  // });
+  const owners = [];
+  dogs.forEach((dog) => {
+    if (dog.breed === "Pug") {
+      owners.push(dog.owner);
+    }
+  });
+  return owners;
 }
 
 function pluraliseKeys(obj) {
@@ -97,6 +127,9 @@ function getWordLengths(str) {
     This function takes a string and returns an array of the lengths of each word in the string.
     E.g. 'pineapple and black bean curry' => [9, 3, 5, 4, 5]
   */
+  return str.length === 0
+    ? []
+    : str.split(" ").map((word) => word.length) || [];
 }
 
 function getPalindromes(words) {
@@ -105,6 +138,15 @@ function getPalindromes(words) {
     A palindrome is a word that is spelled the same way backwards.
     E.g. ['foo', 'racecar', 'pineapple', 'porcupine', 'tacocat'] =>  ['racecar', 'tacocat']
   */
+  const palindromes = [];
+
+  words.forEach((word) => {
+    if (word.split("").reverse().join("") === word) {
+      palindromes.push(word);
+    }
+  });
+
+  return palindromes;
 }
 
 function replaceLettersWithXs(str) {
@@ -112,7 +154,21 @@ function replaceLettersWithXs(str) {
     This function will receive a string with a mix of characters. It should return the string with all letters replaced by dashes ('X').
     For example 'I love Greg' should return 'X XXXX XXXX', and 'Hard as 1, 2, 3' should return 'XXXX XX 1, 2, 3'.
   */
+  // return str.split("").replace(/^[a-zA-Z]/g, "X").join("");
+  // return str.split("").replace(/^[a-zA-Z]*/, "X");
+  const newStrArray = [];
+  str.split("").forEach((char) => {
+    if (char.match(/^[a-zA-Z]/)) {
+      newStrArray.push("X");
+    } else {
+      newStrArray.push(char);
+    }
+  });
+
+  return newStrArray.join("");
 }
+
+replaceLettersWithXs("Hard as 1, 2, 3");
 
 function validMobileNumber(num) {
   /*
@@ -131,6 +187,8 @@ function sumDigitsFromString(str) {
     'foo99cat' => 18
     Tip: For this one, it might be useful to know that the value `NaN` in JavaScript behaves oddly. For example, if you do `typeof NaN` it tells you it's a `"number"`. Odd, eh?
   */
+  const digits = str.match(/\d+/g);
+  return digits.reduce((acc, cur) => acc + Number(cur), 0);
 }
 
 function getWilliams(arr) {
@@ -138,8 +196,8 @@ function getWilliams(arr) {
     This function takes an array of full names and returns an array containing only the people whose last name is Williams.
     E.g. ['Charlotte Jones', 'Rebecca Williams', 'Harry Williams', 'John Williamson', 'William Jones'] => ['Rebecca Williams', 'Harry Williams']
   */
+  return arr.filter((name) => name.split(" ")[1] === "Williams");
 }
-
 
 function getFactorials(nums) {
   /*
@@ -149,6 +207,15 @@ function getFactorials(nums) {
     The factorial of a number is the product of that number and all the integers below it.
     E.g. the factorial of 4 is 4 * 3 * 2 * 1 = 24
   */
+
+  function factorial(n) {
+    if (n === 0) {
+      return 1;
+    }
+    return n * factorial(n - 1);
+  }
+
+  return nums.map(factorial);
 }
 
 function largestNumber(num) {
@@ -158,6 +225,15 @@ function largestNumber(num) {
     E.g. if num is 9, the function should return 9.
     E.g. if num is 581 the function should return 851.
   */
+  return num.length === 1
+    ? num
+    : Number(
+        num
+          .toString()
+          .split("")
+          .sort((a, b) => b - a)
+          .join("")
+      );
 }
 
 function generateMatrix(n) {
@@ -201,6 +277,21 @@ function tallyHashtagsAndMentions(str) {
     The function should return an object describing the number of hashtags and mentions found:
     { hashtags: 2, mentions: 1 }
   */
+  let hashtagTotal = 0;
+  let mentionsTotal = 0;
+
+  str.split(" ").forEach((word) => {
+    if (word.startsWith("#")) {
+      hashtagTotal += 1;
+    } else if (word.startsWith("@")) {
+      mentionsTotal += 1;
+    }
+  });
+
+  return {
+    hashtags: hashtagTotal,
+    mentions: mentionsTotal,
+  };
 }
 
 // ---------- Do not change the code below this line --------------
@@ -223,5 +314,5 @@ module.exports = {
   generateMatrix,
   findWrongWayFruit,
   pairDNA,
-  tallyHashtagsAndMentions
+  tallyHashtagsAndMentions,
 };
