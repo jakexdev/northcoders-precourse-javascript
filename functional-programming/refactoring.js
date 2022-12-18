@@ -3,8 +3,8 @@
 
 function tripleNums(nums) {
   const tripledArr = [];
-  for (let i = 0; i < nums.length; i++) {
-    tripledArr.push(nums[i] * 3);
+  for (let num of nums) {
+    tripledArr.push(num * 3);
   }
   return tripledArr;
 }
@@ -14,12 +14,7 @@ function tripleNums(nums) {
 
 function shoutNames(names) {
   // shoutNames capitalises all the names and returns them in a new array.
-  const shoutyArray = [];
-  for (let i = 0; i < names.length; i++) {
-    const upperCaseName = names[i].toUpperCase();
-    shoutyArray.push(upperCaseName);
-  }
-  return shoutyArray;
+  return names.map((name) => name.toUpperCase());
 }
 
 // TASK 3
@@ -27,12 +22,7 @@ function shoutNames(names) {
 
 function isSweetEnough(foodArray) {
   // isSweetEnough returns true if ALL foods are sweet.
-  for (let i = 0; i < foodArray.length; i++) {
-    if (foodArray[i].flavour !== 'sweet') {
-      return false;
-    }
-  }
-  return true;
+  return foodArray.every((food) => food.flavour === "sweet");
 }
 
 // TASK 4
@@ -40,14 +30,18 @@ function isSweetEnough(foodArray) {
 
 function getExcited(sentence) {
   // getExcited changes all full stops in a sentence to an exclamation mark!
-  const sentenceArray = sentence.split('');
-  for (let i = 0; i < sentenceArray.length; i++) {
-    if (sentenceArray[i] === '.') {
-      sentenceArray[i] = '!';
-    }
-  }
+  // const sentenceArray = sentence.split("");
+  // for (let i = 0; i < sentenceArray.length; i++) {
+  //   if (sentenceArray[i] === ".") {
+  //     sentenceArray[i] = "!";
+  //   }
+  // }
 
-  return sentenceArray.join('');
+  // return sentenceArray.join("");
+  return sentence
+    .split("")
+    .map((el) => (el === "." ? "!" : el))
+    .join("");
 }
 
 // TASK 5
@@ -55,17 +49,19 @@ function getExcited(sentence) {
 
 function isShrekCharacter(characters) {
   // isShrekCharacter receives an array of characters and *only* returns the characters from the Shrek franchise in a new array.
-  console.log(characters);
-  const x = [];
-
-  for (let i = 0; i < characters.length; i++) {
-    let character = characters[i];
-    if (characters[i].movie.includes('Shrek')) {
-      x.push(characters[i]);
-    }
-  }
-  return x;
+  return characters.filter((character) => character.movie.includes("Shrek"));
 }
+
+console.log(
+  isShrekCharacter([
+    { name: "Fiona", movie: "Shrek" },
+    { name: "Fairy Godmother", movie: "Shrek 2" },
+    { name: "Cookie", movie: "Shrek 4" },
+    { name: "Puss In Boots", movie: "Shrek 2" },
+    { name: "Han Solo", movie: "Star Wars: A New Hope" },
+    { name: "Han Solo", movie: "Star Wars: A New Hope" },
+  ])
+);
 
 // NOTE: Remember to remove any unused variables or console logs from the code. Refactoring is also about readability, ensure variables are clearly named!
 
