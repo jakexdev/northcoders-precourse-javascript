@@ -26,7 +26,8 @@ function getSandwichFilling(sandwich) {
 
 function removeItem(array, n) {
   // return a new array without the item on position 'n', effectively removing it from the array
-  return array.
+
+  return array.filter((item, index) => index !== n);
 }
 
 function mergeArrays(arr1, arr2) {
@@ -57,4 +58,3 @@ module.exports = {
   flattenArrayByOne,
   isItemOmnipresent,
 };
-
