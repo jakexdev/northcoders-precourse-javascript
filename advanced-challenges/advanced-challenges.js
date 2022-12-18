@@ -35,6 +35,10 @@ function translateKey(student, keyToChange, translation) {
       job: 'Artist'
     }
   */
+  const val = student[keyToChange];
+  delete student[keyToChange];
+
+  return { [translation]: val, ...student };
 }
 
 function findFirstDentist(people) {
@@ -42,11 +46,6 @@ function findFirstDentist(people) {
     This function takes an array of people objects and returns the first found dentist object from the array.
   */
   const dentist = people.find((person) => person.isDentist);
-  // if (!dentist) {
-  //   return null;
-  // } else {
-  //   return dentist;
-  // }
   return !dentist ? null : dentist;
 }
 
@@ -79,11 +78,6 @@ function getPugOwners(dogs) {
     ]
     will return ['Izzi', 'Anat']
   */
-  // return dogs.map((dog) => {
-  //   if (dog.breed === "Pug") {
-  //     return dog.owner;
-  //   }
-  // });
   const owners = [];
   dogs.forEach((dog) => {
     if (dog.breed === "Pug") {
@@ -120,6 +114,17 @@ function pluraliseKeys(obj) {
       ]
     }
   */
+  const newObj = {};
+
+  for (const key in obj) {
+    if (Array.isArray(obj[key]) && obj[key].length > 1) {
+      newObj[key + "s"] = obj[key];
+    } else {
+      newObj[key] = obj[key];
+    }
+  }
+
+  return newObj;
 }
 
 function getWordLengths(str) {
@@ -138,15 +143,8 @@ function getPalindromes(words) {
     A palindrome is a word that is spelled the same way backwards.
     E.g. ['foo', 'racecar', 'pineapple', 'porcupine', 'tacocat'] =>  ['racecar', 'tacocat']
   */
-  const palindromes = [];
 
-  words.forEach((word) => {
-    if (word.split("").reverse().join("") === word) {
-      palindromes.push(word);
-    }
-  });
-
-  return palindromes;
+  return words.filter((word) => word.split("").reverse("").join("") === word);
 }
 
 function replaceLettersWithXs(str) {
@@ -154,8 +152,6 @@ function replaceLettersWithXs(str) {
     This function will receive a string with a mix of characters. It should return the string with all letters replaced by dashes ('X').
     For example 'I love Greg' should return 'X XXXX XXXX', and 'Hard as 1, 2, 3' should return 'XXXX XX 1, 2, 3'.
   */
-  // return str.split("").replace(/^[a-zA-Z]/g, "X").join("");
-  // return str.split("").replace(/^[a-zA-Z]*/, "X");
   const newStrArray = [];
   str.split("").forEach((char) => {
     if (char.match(/^[a-zA-Z]/)) {
@@ -178,6 +174,23 @@ function validMobileNumber(num) {
     It may also begin with '00447' followed by 9 more digits.
     Anything else is invalid.
   */
+
+  // Remove any spaces or dashes from the number
+  number = num.replace(/[\s-]/g, "");
+
+  if (/^07\d{9}$/.test(num)) {
+    return true;
+  }
+
+  if (/^\+447\d{9}$/.test(num)) {
+    return true;
+  }
+
+  if (/^00447\d{9}$/.test(num)) {
+    return true;
+  }
+
+  return false;
 }
 
 function sumDigitsFromString(str) {
@@ -187,7 +200,7 @@ function sumDigitsFromString(str) {
     'foo99cat' => 18
     Tip: For this one, it might be useful to know that the value `NaN` in JavaScript behaves oddly. For example, if you do `typeof NaN` it tells you it's a `"number"`. Odd, eh?
   */
-  const digits = str.match(/\d+/g);
+  const digits = str.split("").join(" ").match(/\d+/g);
   return digits.reduce((acc, cur) => acc + Number(cur), 0);
 }
 
@@ -246,6 +259,11 @@ function generateMatrix(n) {
       [null, null, null]
     ]
   */
+  const matrix = new Array(n);
+  for (let i = 0; i < matrix.length; i++) {
+    matrix[i] = new Array(n).fill(null);
+  }
+  return matrix;
 }
 
 function findWrongWayFruit(orchard) {
@@ -259,13 +277,30 @@ function findWrongWayFruit(orchard) {
   */
 }
 
+findWrongWayFruit(["apple", "apple", "apple", "apple", "elppa", "apple"]);
+
 function pairDNA(dna) {
   /*
     This function takes a string of DNA such as 'GTCA' and returns an array containing correctly matched DNA pairs.
     E.g. 'GTTC' => ['GC', 'TA', 'TA', 'CG']
     If any nonsensical letters are passed as DNA they should be ignored.
     E.g. 'GYTC' => ['GC', 'TA', 'CG']
-  */
+*/
+
+  const matchedDNA = [];
+  for (let i = 0; i < dna.length; i++) {
+    if (dna[i].toUpperCase() === "C") {
+      matchedDNA.push("CG");
+    } else if (dna[i].toUpperCase() === "A") {
+      matchedDNA.push("AT");
+    } else if (dna[i].toUpperCase() === "G") {
+      matchedDNA.push("GC");
+    } else if (dna[i].toUpperCase() === "T") {
+      matchedDNA.push("TA");
+    }
+  }
+
+  return matchedDNA;
 }
 
 function tallyHashtagsAndMentions(str) {
