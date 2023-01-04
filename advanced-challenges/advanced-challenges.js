@@ -266,31 +266,15 @@ function generateMatrix(n) {
   return matrix;
 }
 
-// function findWrongWayFruit(orchard) {
-//   /*
-//     This array takes an array of fruit in the format:
-//     ['apple', 'apple', 'apple', 'apple', 'elppa', 'apple']
+function findWrongWayFruit(orchard) {
+  /*
+    This array takes an array of fruit in the format:
+    ['apple', 'apple', 'apple', 'apple', 'elppa', 'apple']
 
-//     The fruit will all be the 'right way round' apart from 1 fruit!
-//     Your function should return its index position. E.g. in this example, 4.
-//     NB The fruit will not always be apple but it will always be an orchard of the same kind of fruit.
-//   */
-//   for (let i = 0; i < orchard.length; i++) {
-//     let unique = true; // Assume the element is unique
-//     for (let j = 0; j < orchard.length; j++) {
-//       // Skip the current element
-//       if (i === j) continue;
-
-//       // If the element is not unique, break out of the inner loop
-//       if (orchard[i] === orchard[j]) {
-//         unique = false;
-//         break;
-//       }
-//     }
-//   }
-
-  // If the element is unique, return its index
-  if (unique) return i;
+    The fruit will all be the 'right way round' apart from 1 fruit!
+    Your function should return its index position. E.g. in this example, 4.
+    NB The fruit will not always be apple but it will always be an orchard of the same kind of fruit.
+  */
 }
 
 function pairDNA(dna) {
@@ -326,21 +310,18 @@ function tallyHashtagsAndMentions(str) {
     The function should return an object describing the number of hashtags and mentions found:
     { hashtags: 2, mentions: 1 }
   */
-  let hashtagTotal = 0;
-  let mentionsTotal = 0;
+  let hashtags = 0;
+  let mentions = 0;
 
-  str.split(" ").forEach((word) => {
-    if (word.startsWith("#")) {
-      hashtagTotal += 1;
-    } else if (word.startsWith("@")) {
-      mentionsTotal += 1;
+  for (let i = 0; i < str.length; i++) {
+    if (str[i] === "#") {
+      hashtags += 1;
+    } else if (str[i] === "@") {
+      mentions += 1;
     }
-  });
+  }
 
-  return {
-    hashtags: hashtagTotal,
-    mentions: mentionsTotal,
-  };
+  return { hashtags, mentions };
 }
 
 // ---------- Do not change the code below this line --------------
